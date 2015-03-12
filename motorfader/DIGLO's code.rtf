@@ -1,0 +1,26 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf470
+{\fonttbl\f0\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww14600\viewh16180\viewkind0
+\deftab720
+\pard\pardeftab720\sa240
+
+\f0\fs72 \cf0 int pos,rif[2],dot_e,e[2], control, inte=0;\uc0\u8232 \u8232 while(1)\u8232 \{\u8232 pos = adc_read(0); //read actual fader position 0-255\u8232 rif[0] = adc_read(1) //read desired position from pot on adc1 0-255\u8232 \u8232 if(timer)\u8232 \{\u8232 e[0]=rif[0]-pos;\u8232 inte+=e[0];\u8232 dot_e=e[1]-e[0];\u8232 control=70*e[0] - 60*dot_e + inte/20;\u8232 motor(control); //motor() takes values from -255 to +255\u8232 e[1]=e[0];\u8232 PORTD^=0b01000000;\u8232 rif[1]=rif[0];\u8232 timer--;\u8232 \}\u8232 else motor(0); //stop motor movement\u8232 \u8232 \}\
+\pard\pardeftab720
+
+\fs24 \cf0 \
+\pard\pardeftab720\sa240
+\cf0 motor() is my motor driving function, wich sets the pwm for modulus of speed and anothe pin to set the direction\
+\pard\pardeftab720
+\cf0 \
+\pard\pardeftab720\sa240
+\cf0 it depends on your wardware\
+\pard\pardeftab720
+\cf0 \
+\pard\pardeftab720\sa240
+\cf0 you should iterare this while() onto each fader and keep the loop running for at least 100-150ms in order to allow tha fader to go to the right position\
+\pard\pardeftab720
+\cf0 \
+\pard\pardeftab720\sa240
+\cf0 as you cna see i use a small amount of integrakl control, inte/20, use it only if you need it!\
+}
